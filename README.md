@@ -1,6 +1,6 @@
 # Movie Explorer App
 
-![live demo]()
+![live demo](https://stately-capybara-ab3e61.netlify.app/)
 
 A modern React application for browsing movies with beautiful animations and
 responsive design.
