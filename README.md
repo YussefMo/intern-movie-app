@@ -44,14 +44,97 @@ npm install
 npm run dev
 ```
 
+## Development
+
+### Prerequisites
+
+- Node.js (v18 or later recommended)
+- npm (or yarn)
+
+### Setup
+
+1.  Clone the repository:
+    ```bash
+    git clone https://your-repository-url.git
+    cd your-project-directory
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+    or
+    ```bash
+    yarn install
+    ```
+
+### Running the App
+
+To start the development server:
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+yarn dev
+```
+
+The application will be available at `http://localhost:5173` (or another port if
+5173 is in use).
+
+## Deployment
+
+This project is configured for easy deployment on platforms like Netlify.
+
+### Netlify
+
+1.  Connect your Git repository to Netlify.
+2.  Configure the build settings:
+    - **Build command:** `npm run build` (or `yarn build`)
+    - **Publish directory:** `dist`
+3.  Deploy your site.
+
+The live demo is hosted on Netlify:
+[live demo](https://stately-capybara-ab3e61.netlify.app/)
+
 ## Project Structure
 
 ```
-src/
-├── components/       # Reusable UI components
-├── hooks/           # Custom hooks
-├── App.jsx          # Main application component
-└── main.jsx         # Application entry point
+your-project-directory/
+├── public/              # Static assets (e.g., images, favicon)
+├── src/
+│   ├── assets/            # Static assets like images, fonts
+│   ├── components/        # Reusable UI components (e.g., MovieCard.jsx, SearchBar.jsx, Loader.jsx)
+│   ├── hooks/             # Custom React Hooks
+│   ├── lib/               # Utility functions, API configurations, etc.
+│   ├── App.jsx            # Main application component
+│   └── main.jsx           # Application entry point
+├── .gitignore           # Specifies intentionally untracked files that Git should ignore
+├── index.html           # The main HTML page that is served
+├── package.json         # Lists project dependencies and scripts
+├── README.md            # Project documentation
+└── vite.config.js       # Vite build tool configuration
+```
+
+## Code Style
+
+This project uses [Prettier](https://prettier.io/) for consistent code
+formatting. It's recommended to set up Prettier in your code editor to
+automatically format code on save.
+
+To format all files (ensure you have a script in `package.json` like
+`"format": "prettier --write ."`):
+
+```bash
+npm run format
+```
+
+or
+
+```bash
+yarn format
 ```
 
 ## Contributing

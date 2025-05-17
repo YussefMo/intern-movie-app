@@ -60,7 +60,11 @@ const MovieCard = ({ movie, onClick }) => {
             >
               {movie.Title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              textAlign="center"
+            >
               {movie.Year}
             </Typography>
           </CardContent>

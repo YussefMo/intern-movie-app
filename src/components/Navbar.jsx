@@ -1,6 +1,15 @@
-import { AppBar, Toolbar, Typography, InputBase, Box } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase,
+  Box,
+  IconButton
+} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { motion } from 'framer-motion';
 
 const Search = styled('div')(({ theme }) => ({
@@ -47,10 +56,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-const Navbar = ({ onSearchChange }) => {
+const Navbar = ({ onSearchChange, themeMode, toggleThemeMode }) => {
   return (
     <AppBar position="static">
-      <Toolbar sx={{ justifyContent: { xs: 'center', sm: 'space-between' } }}>
+      <Toolbar
+        sx={{
+          justifyContent: 'space-between',
+          // On extra-small screens, center the content
+          '@media (max-width: 600px)': {
+            justifyContent: 'center'
+          }
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,28 +77,57 @@ const Navbar = ({ onSearchChange }) => {
             variant="h6"
             noWrap
             component="div"
+            // Hide logo on extra-small screens to allow search to center
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
             MovieApp
           </Typography>
         </motion.div>
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }} />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        {/* This Box will push the search to the right on sm screens and up, but won't exist on xs screens */}
+        <Box
+          sx={{ flexGrow: { sm: 1 }, display: { xs: 'none', sm: 'block' } }}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: { xs: 'center', sm: 'flex-end' },
+            width: { xs: '100%', sm: 'auto' }
+          }}
         >
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
-          </Search>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            // Ensure motion.div takes appropriate width on small screens
+            style={{ width: 'auto', display: 'flex', alignItems: 'center' }}
+          >
+            <Search
+              sx={{
+                width: { xs: 'calc(100% - 48px)', sm: 'auto' },
+                mr: { xs: 1, sm: 0 }
+              }}
+            >
+              {' '}
+              {/* Adjust width on xs and add margin */}
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => onSearchChange(e.target.value)}
+              />
+            </Search>
+            <IconButton
+              sx={{ ml: 1 }}
+              onClick={toggleThemeMode}
+              color="inherit"
+            >
+              {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </motion.div>
+        </Box>
       </Toolbar>
     </AppBar>
   );

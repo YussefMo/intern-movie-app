@@ -77,9 +77,10 @@ const MovieModal = ({ movie, open, onClose }) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.7 }}
               transition={{ duration: 0.3 }}
+              style={{ padding: '5rem' }}
             >
               <Box sx={style}>
-                <Loader />
+                <Loader mt={0} />
               </Box>
             </motion.div>
           </Modal>

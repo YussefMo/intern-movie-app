@@ -9,7 +9,6 @@ export function useGetMovie(name) {
   } = useQuery({
     queryKey: ['movie', name],
     queryFn: () => getMovieByName(name),
-    enabled: !!name
   });
 
   return { loadingMovie, movieData, error };

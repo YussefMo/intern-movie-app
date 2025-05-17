@@ -9,7 +9,7 @@ export async function getMovieByName(name) {
     if (name.trim() === '') {
       throw new Error('please make sure to input a valid name');
     } else if (name.length < 3) {
-      return;
+      throw new Error('please make sure to input a valid name at least 3 char name');
     } else {
       const { data } = await axios.get(`${BASE_URL}${name}`);
       if (data.Response === 'False') {

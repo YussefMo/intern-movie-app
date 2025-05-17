@@ -5,19 +5,29 @@ import {
   createTheme
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import MovieGrid from './components/MovieGrid';
 import MovieModal from './components/MovieModal';
 import Navbar from './components/Navbar';
 import { useGetMovie } from './hooks/useGetMovie';
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark'
-  }
-});
-
 function App() {
+  const [themeMode, setThemeMode] = useState('dark');
+
+  const toggleThemeMode = () => {
+    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: themeMode
+        }
+      }),
+    [themeMode]
+  );
+
   const [searchQuery, setSearchQuery] = useState('Inception');
   const [debouncedQuery, setDebouncedQuery] = useState('Inception');
   const { movieData, loadingMovie, error } = useGetMovie(debouncedQuery);
@@ -53,13 +63,18 @@ function App() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Navbar onSearchChange={handleSearchChange} />
+        <Navbar
+          onSearchChange={handleSearchChange}
+          themeMode={themeMode}
+          toggleThemeMode={toggleThemeMode}
+        />
         <Container sx={{ py: 3 }}>
           <MovieGrid
             movies={movieData?.Search}
             loadingMovie={loadingMovie}
             error={error}
             onMovieClick={handleMovieCardClick}
+            debouncedQuery={debouncedQuery}
           />
         </Container>
         <MovieModal
